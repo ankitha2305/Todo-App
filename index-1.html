@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Todo App</title>
+<style>
+  body {
+      background-image: url('morning.jpg');
+      background-repeat:no-repeat;
+      background-size:cover;
+    }
+
+.container {
+  width: 600px;
+  margin: 10px auto;
+  box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list li {
+  background: #f5f5f5;
+  margin: 5px 0px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+}
+
+.list li.done {
+  text-decoration: line-through;
+  color: #ccc;
+}
+
+.input {
+  width: 100%;
+  padding: 5px 10px;
+  border: 1px solid #eee;
+  box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+  font-size: 16px;
+  background: url('morning.jpg') no-repeat;
+  background-size: cover;
+  border-radius: 4px;
+}
+
+.button {
+  padding: 10px;
+  background: #EAEAEA;
+  font-size: 15px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #000;
+  margin-left: 10px;
+}
+
+</style>
+
+<script>
+// function to add a todo
+function addTodo(){
+  // get the todo item
+  var item = document.getElementById("todo-item");
+  // get the ul list
+  var list = document.getElementById("list");
+  // create li
+  var li = document.createElement("li");
+  // create text node 
+  var textnode = document.createTextNode(item.value);
+  // add text to li
+  li.appendChild(textnode);
+  // add the li to list
+  list.appendChild(li);
+
+  // clear the input field
+  item.value = "";
+
+// creating done button
+  var doneButton = document.createElement("button");
+  var doneText = document.createTextNode("Done");
+  doneButton.setAttribute("class","button");
+  doneButton.setAttribute("onclick","doneItem(this)");
+  doneButton.appendChild(doneText);
+  li.appendChild(doneButton);
+
+// creating edit button
+  var editButton = document.createElement("button");
+  var editText = document.createTextNode("Edit");
+  editButton.setAttribute("class","button");
+  editButton.setAttribute("onclick","editItem(this)");
+  editButton.appendChild(editText);
+  li.appendChild(editButton);
+
+// creating delete button
+  var deleteButton = document.createElement("button");
+  var deleteText = document.createTextNode("Delete");
+  deleteButton.setAttribute("class","button");
+  deleteButton.setAttribute("onclick","deleteItem(this)");
+  deleteButton.appendChild(deleteText);
+  li.appendChild(deleteButton);
+}
+
+// function to delete a todo
+function deleteItem(d){
+  d.parentNode.remove();
+}
+
+// function to edit a todo
+function editItem(e){
+  // get the value of the todo item
+  var val = e.parentNode.firstChild.nodeValue;
+  // get the li item
+  var editValue = prompt("Edit Todo",val);
+  // set the value of li item with the new value
+  e.parentNode.firstChild.nodeValue = editValue;
+}
+
+// function to mark a todo as done
+function doneItem(d){
+  d.parentNode.setAttribute("class","done");
+}
+
+</script>
+</head>
+<body>
+  <div class="container">
+    <h2>Todo App</h2>
+    <input type="text" id="todo-item" placeholder="Enter Todo item" class="input" />
+    <button class="button" onclick="addTodo()">Add</button>
+    <ul id="list"></ul>
+  </div>
+</body>
+</html>
